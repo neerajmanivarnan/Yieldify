@@ -44,12 +44,11 @@ public class controller {
     }
 
     private String buildUrl(String symbol, String fromDate, String toDate) {
-        // Replace with the actual Upstox API URL structure
         return "https://api.upstox.com/v2/historical-candle/" + symbol + "/day/" + toDate + "/" + fromDate;
     }
 
     private ResponseEntity<String> handleApiResponse(ResponseEntity<String> response) {
-        int statusCode = response.getStatusCodeValue(); // Use getStatusCodeValue()
+        int statusCode = response.getStatusCodeValue(); 
         String responseBody = response.getBody();
     
         if (statusCode == 200) {
@@ -58,14 +57,42 @@ public class controller {
                 JsonNode jsonNode = objectMapper.readTree(responseBody);
                 JsonNode candlesNode = jsonNode.path("data").path("candles");
 
-                StringBuilder resultBuilder = new StringBuilder();
+                List<Double> closingPrices = new ArrayList<>();
                 for (JsonNode candle : candlesNode) {
-                    String date = candle.get(0).asText();
-                    double close = candle.get(4).asDouble();
-                    resultBuilder.append("Date: ").append(date).append(", Close: ").append(close).append("\n");
+                    closingPrices.add(candle.get(4).asDouble());
                 }
 
-                return ResponseEntity.ok(resultBuilder.toString());
+                List<Double> dailyReturns = calculateDailyReturns(closingPrices);
+
+                double average = calculateAverage(dailyReturns);
+
+                double dailyVolatility = calculateVolatility(dailyReturns);
+
+                double secondStdDeviation = 2 * dailyVolatility;
+
+                double fiveDaysVolatility = Math.sqrt(5) * secondStdDeviation;
+
+                double fiveDayMean = 5 * average;
+
+                double upperRange = fiveDayMean + fiveDaysVolatility;
+
+                double lowerRange = fiveDayMean - fiveDaysVolatility;
+
+                double marketPrice = closingPrices.get(0);
+
+                double upperPoint = (upperRange / 100) * marketPrice;
+
+                double lowerPoint = (lowerRange / 100) * marketPrice;
+
+                double upperBound = upperPoint + marketPrice;
+
+                double lowerBound = marketPrice - lowerPoint;
+
+                // Format and return the results
+                String result = String.format("Average: %.2f, Daily Volatility: %.2f, 5 Days Volatility: %.2f, Upper Bound: %.2f, Lower Bound: %.2f, marketPrice: %.2f",
+                        average, dailyVolatility, fiveDaysVolatility, upperBound, lowerBound, marketPrice);
+
+                return ResponseEntity.ok(result);
             } catch (Exception e) {
                 return ResponseEntity.internalServerError().body("Error parsing JSON: " + e.getMessage());
             } 
@@ -73,5 +100,34 @@ public class controller {
                 return ResponseEntity.status(statusCode).body("Error: " + responseBody);
             
         }   
+    }
+
+    private List<Double> calculateDailyReturns(List<Double> closingPrices) {
+        List<Double> dailyReturns = new ArrayList<>();
+        for (int i = 1; i < closingPrices.size(); i++) {
+            double previousClosingPrice = closingPrices.get(i - 1);
+            double currentClosingPrice = closingPrices.get(i);
+            double dailyReturn = (Math.log(currentClosingPrice / previousClosingPrice)) * 100;
+            dailyReturns.add(dailyReturn);
+        }
+        return dailyReturns;
+    }
+
+    private double calculateAverage(List<Double> values) {
+        double sum = 0;
+        for (double value : values) {
+            sum += value;
+        }
+        return sum / values.size();
+    }
+
+    private double calculateVolatility(List<Double> values) {
+        double average = calculateAverage(values);
+        double sumOfSquares = 0;
+        for (double value : values) {
+            sumOfSquares += Math.pow(value - average, 2);
+        }
+        double variance = sumOfSquares / values.size();
+        return Math.sqrt(variance);
     }
 }
