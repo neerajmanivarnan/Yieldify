@@ -1,0 +1,39 @@
+/* AdvancedComponent.css */
+.page-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #161819; /* Background gradient */
+  }
+  
+  .advanced-component {
+    background-color: #161819; /* Background gradient */
+    color: #FAFAFA; /* Text color */
+    padding: 20px;
+    border-radius: 8px;
+  }
+  
+  .title {
+    color: #7560EE; /* Accent color */
+    margin-bottom: 20px;
+  }
+  
+  .content {
+    margin-bottom: 20px;
+  }
+  
+  .action-button {
+    background-color: #1DABD7; /* Secondary color */
+    color: #FAFAFA; /* Text color */
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .action-button:hover {
+    background-color: #1ACDD5; /* Secondary color - hover state */
+  }
+  

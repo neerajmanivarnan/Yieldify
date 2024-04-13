@@ -1,0 +1,61 @@
+/* NavBar.css */
+
+/* Custom styles for the Navbar */
+.bg-body-tertiary {
+    background-color: #161819; /* Background gradient */
+    color: #FAFAFA; /* Text color */
+  }
+  
+  .navbar-brand {
+    color: #7560EE; /* Accent color */
+  }
+  
+  .navbar-brand:hover {
+    color: #FFFFFF; /* Hover color */
+  }
+  
+  .navbar-nav .nav-link {
+    color: #FAFAFA; /* Text color */
+  }
+  
+  .navbar-nav .nav-link:hover {
+    color: #FFFFFF; /* Hover color */
+  }
+  
+  .navbar-toggler-icon {
+    color: #FAFAFA; /* Text color */
+  }
+  
+  .navbar-toggler:focus {
+    outline: none; /* Remove focus outline */
+  }
+  
+  .navbar-toggler-icon:focus {
+    outline: none; /* Remove focus outline */
+  }
+  
+  .navbar-toggler-icon:hover {
+    color: #FFFFFF; /* Hover color */
+  }
+  
+  .btn-primary {
+    background-color: #1DABD7; /* Primary color */
+    border-color: #1DABD7; /* Border color */
+    color: #FAFAFA; /* Text color */
+  }
+  
+  .btn-primary:hover {
+    background-color: #1ACDD5; /* Primary color - hover state */
+    border-color: #1ACDD5; /* Border color - hover state */
+  }
+  
+  .btn-outline-primary {
+    color: #1DABD7; /* Text color */
+    border-color: #1DABD7; /* Border color */
+  }
+  
+  .btn-outline-primary:hover {
+    color: #1ACDD5; /* Text color - hover state */
+    border-color: #1ACDD5; /* Border color - hover state */
+  }
+  
