@@ -1,25 +1,15 @@
 package com.wow.yieldify;
 
-import java.net.http.HttpResponse;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.text.Document;
-
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Element;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.ResponseEntity.BodyBuilder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
-
-import kong.unirest.Unirest;
-import kong.unirest.UnirestException;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -27,19 +17,22 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @RestController
 public class controller {
 
-    @GetMapping("/historical-data/{symbol}/{fromDate}/{toDate}")
-    public ResponseEntity<String> getHistoricalData(@PathVariable String symbol,
+    @GetMapping("/historical-data/{symbol}/{fromDate}/{toDate}/{x}")
+    @ResponseBody
+    public ResponseEntity<MetricsResponse> getHistoricalData(@PathVariable String symbol,
                                                     @PathVariable String fromDate,
-                                                    @PathVariable String toDate) {
+                                                    @PathVariable String toDate,
+                                                    @PathVariable int x) {
 
         String url = buildUrl(symbol, fromDate, toDate);
         RestTemplate restTemplate = new RestTemplate();
 
         try {
             ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
-            return handleApiResponse(response);
+            return handleApiResponse(response, x);
         } catch (RestClientException e) {
-            return ResponseEntity.internalServerError().body("Error fetching data: " + e.getMessage());
+            MetricsResponse errorResponse = new MetricsResponse(-1, -1, -1, -1, -1, -1, -1); // Initialize with default values
+            return ResponseEntity.internalServerError().body(errorResponse);
         }
     }
 
@@ -47,7 +40,7 @@ public class controller {
         return "https://api.upstox.com/v2/historical-candle/" + symbol + "/day/" + toDate + "/" + fromDate;
     }
 
-    private ResponseEntity<String> handleApiResponse(ResponseEntity<String> response) {
+    private ResponseEntity<MetricsResponse> handleApiResponse(ResponseEntity<String> response, int x) {
         int statusCode = response.getStatusCodeValue(); 
         String responseBody = response.getBody();
     
@@ -70,13 +63,13 @@ public class controller {
 
                 double secondStdDeviation = 2 * dailyVolatility;
 
-                double fiveDaysVolatility = Math.sqrt(5) * secondStdDeviation;
+                double xDaysVolatility = Math.sqrt(x) * secondStdDeviation;
 
-                double fiveDayMean = 5 * average;
+                double xDayMean = Math.abs(x * average);
 
-                double upperRange = fiveDayMean + fiveDaysVolatility;
+                double upperRange = xDayMean + xDaysVolatility;
 
-                double lowerRange = fiveDayMean - fiveDaysVolatility;
+                double lowerRange = xDayMean - xDaysVolatility;
 
                 double marketPrice = closingPrices.get(0);
 
@@ -86,18 +79,19 @@ public class controller {
 
                 double upperBound = upperPoint + marketPrice;
 
-                double lowerBound = marketPrice - lowerPoint;
+                double lowerBound = marketPrice + lowerPoint;
 
                 // Format and return the results
-                String result = String.format("Average: %.2f, Daily Volatility: %.2f, 5 Days Volatility: %.2f, Upper Bound: %.2f, Lower Bound: %.2f, marketPrice: %.2f",
-                        average, dailyVolatility, fiveDaysVolatility, upperBound, lowerBound, marketPrice);
+                // MetricsResponse metricsResponse = new MetricsResponse(average, dailyVolatility, daysVolatility, upperBound, lowerBound, marketPrice, dayMean);
 
-                return ResponseEntity.ok(result);
+                return ResponseEntity.ok(new MetricsResponse(average, dailyVolatility, xDaysVolatility, upperBound, lowerBound, marketPrice, xDayMean));
             } catch (Exception e) {
-                return ResponseEntity.internalServerError().body("Error parsing JSON: " + e.getMessage());
+                MetricsResponse errorResponse = new MetricsResponse(-1, -1, -1, -1, -1, -1, -1); // Initialize with default values
+                return ResponseEntity.internalServerError().body(errorResponse);
             } 
         } else {
-                return ResponseEntity.status(statusCode).body("Error: " + responseBody);
+            MetricsResponse errorResponse = new MetricsResponse(-1, -1, -1, -1, -1, -1, -1); // Initialize with default values
+            return ResponseEntity.status(statusCode).body(errorResponse);
             
         }   
     }
