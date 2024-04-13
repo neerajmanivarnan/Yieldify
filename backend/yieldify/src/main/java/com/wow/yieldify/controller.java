@@ -20,8 +20,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class controller {
 
 
+
     @GetMapping("/historical-data/{symbol}")
     @ResponseBody
+
     public ResponseEntity<MetricsResponse> getHistoricalData(@PathVariable String symbol,
                                                     @RequestBody DataModel datamodel) {
 
