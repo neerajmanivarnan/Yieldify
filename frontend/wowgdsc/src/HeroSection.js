@@ -12,7 +12,7 @@ const HeroSection = () => {
     <div className="hero">
       <h1>Welcome to YEILDIFY</h1>
       <p>Automated market analysis and option recommendations</p>
-    < div className='btn-con' >      <button className="cta-btn" type="button" onClick={handleCreateAccount}>Get Started</button></div>
+    < div className='btn-con' >      <button className="cta-btn" type="button" onClick={handleCreateAccount}>Make Yield</button></div>
     </div>
   );
 }

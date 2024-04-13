@@ -23,7 +23,7 @@
     font-size: 3.5rem; /* Increased font size */
     margin-bottom: 20px;
     font-family: 'Montserrat', sans-serif; /* Custom font */
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Text shadow */
+    text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5); /* Text shadow */
   }
   
   .hero p {

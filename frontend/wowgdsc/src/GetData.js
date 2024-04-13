@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './GetData.css'
+import './GetData.css';
 
 const DateInputPage = () => {
   const [startDate, setStartDate] = useState('');
@@ -32,27 +32,31 @@ const DateInputPage = () => {
   };
 
   return (
-    <div>
-      <h1>Date Input Page</h1>
-      <div>
-        <label htmlFor="startDate">Start Date:</label>
-        <input
-          type="date"
-          id="startDate"
-          value={startDate}
-          onChange={handleStartDateChange}
-        />
+    <div className='date-input-container'>
+      <h1 className='heading'>Select Date Range</h1>
+      <div className='date-pickers'>
+        <div className='date-picker'>
+          <label htmlFor="startDate">Start Date:</label>
+          <input
+            type="date"
+            id="startDate"
+            value={startDate}
+            onChange={handleStartDateChange}
+          />
+        </div>
+        <div className='date-picker'>
+          <label htmlFor="endDate">End Date:</label>
+          <input
+            type="date"
+            id="endDate"
+            value={endDate}
+            onChange={handleEndDateChange}
+          />
+        </div>
       </div>
-      <div>
-        <label htmlFor="endDate">End Date:</label>
-        <input
-          type="date"
-          id="endDate"
-          value={endDate}
-          onChange={handleEndDateChange}
-        />
-      </div>
-      <button onClick={handleGetData}>Get Data</button>
+      <button className='get-data-button' onClick={handleGetData}>
+        Get Data
+      </button>
     </div>
   );
 };
