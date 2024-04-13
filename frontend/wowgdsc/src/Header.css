@@ -1,61 +1,39 @@
-/* NavBar.css */
-
-/* Custom styles for the Navbar */
-.bg-body-tertiary {
-    background-color: #161819; /* Background gradient */
-    color: #FAFAFA; /* Text color */
+/* Header.css */
+.navbar {
+  
+    background: linear-gradient(to right, #26b7ff, #1A202C);/* Dark blue */
+    color: #fff; /* White */
+    padding: 10px 20px;
+    
   }
   
-  .navbar-brand {
-    color: #7560EE; /* Accent color */
+  .nav-links {
+    list-style: none;
+    display: flex;
+    justify-content: flex-end; /* Align elements to the right */
+    align-items: center;
+    margin: 0; /* Remove default margin */
   }
   
-  .navbar-brand:hover {
-    color: #FFFFFF; /* Hover color */
+  .navbar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
   }
   
-  .navbar-nav .nav-link {
-    color: #FAFAFA; /* Text color */
+  .navbar li {
+    display: inline;
+    margin-right: 20px;
   }
   
-  .navbar-nav .nav-link:hover {
-    color: #FFFFFF; /* Hover color */
+  .nav-button {
+    background-color: transparent;
+    border: none;
+    color: #fff; /* White */
+    cursor: pointer;
+    transition: background-color 0.3s ease-in, color 0.3s ease-in, border-color 0.3s ease-in;
   }
   
-  .navbar-toggler-icon {
-    color: #FAFAFA; /* Text color */
+  .nav-button:hover {
+    color: #ccc;
   }
-  
-  .navbar-toggler:focus {
-    outline: none; /* Remove focus outline */
-  }
-  
-  .navbar-toggler-icon:focus {
-    outline: none; /* Remove focus outline */
-  }
-  
-  .navbar-toggler-icon:hover {
-    color: #FFFFFF; /* Hover color */
-  }
-  
-  .btn-primary {
-    background-color: #1DABD7; /* Primary color */
-    border-color: #1DABD7; /* Border color */
-    color: #FAFAFA; /* Text color */
-  }
-  
-  .btn-primary:hover {
-    background-color: #1ACDD5; /* Primary color - hover state */
-    border-color: #1ACDD5; /* Border color - hover state */
-  }
-  
-  .btn-outline-primary {
-    color: #1DABD7; /* Text color */
-    border-color: #1DABD7; /* Border color */
-  }
-  
-  .btn-outline-primary:hover {
-    color: #1ACDD5; /* Text color - hover state */
-    border-color: #1ACDD5; /* Border color - hover state */
-  }
-  

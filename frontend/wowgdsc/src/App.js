@@ -9,7 +9,7 @@ import './App.css';
 function App() {
   return (
     <div className="App">
-      <Header />
+      <div className='head-section'> <Header /> </div>
       <HeroSection />
       <MarketAnalysisSection />
       {/* Add more sections/components here */}

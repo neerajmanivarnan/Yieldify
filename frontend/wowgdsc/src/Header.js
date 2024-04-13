@@ -1,21 +1,18 @@
-import Container from 'react-bootstrap/Container';
-import Navbar from 'react-bootstrap/Navbar';
-import Button from 'react-bootstrap/Button';
-import './Header.css'
+// Navbar.js
 
-function NavBar() {
+import React from 'react';
+import './Header.css';
+
+const Navbar = () => {
   return (
-    <Navbar expand="lg" className="bg-body-tertiary">
-      <Container>
-        <Navbar.Brand href="#home">Yeildify</Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Button variant="primary" className="me-auto" href="#login">Login</Button>
-          <Button variant="outline-primary" href="#signup">Signup</Button>
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
+    <nav className="navbar">
+        <span className="navbar-brand">YEILDIFY</span>
+      <ul className="nav-links">
+        <li><button className="nav-button">Login</button></li>
+        <li><button className="nav-button">Signup</button></li>
+      </ul>
+    </nav>
   );
-}
+};
 
-export default NavBar;
+export default Navbar;

@@ -16,7 +16,7 @@ function Footer() {
           </div>
         </div>
         <hr className="footer-divider" />
-        <p className="footer-copyright">© Yieldify™ 2022</p>
+        <p className="footer-copyright">© Yieldify™ 2024</p>
       </div>
     </footer>
   );

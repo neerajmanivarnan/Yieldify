@@ -1,28 +1,70 @@
-/* components/HeroSection.css */
+/* HeroSection.css */
+
 .hero {
-    background-image: url('hero-image.jpg'); /* Replace with actual image */
-    background-size: cover;
-    padding: 100px 0;
-    text-align: center;
+    background: linear-gradient(to right, #26b7ff, #1A202C); 
+    /* background: #FAFAFA; */
+    color: #FAFAFA; /* Text color */
+    /* padding: 100px 0; */
+    padding: 50px ;
+    /* text-align: center; */
+    display:grid;
+    justify-content:center;
+    
+    /* align-items: center; */
+  }
+
+  .btn-con{
+    
+    display: flex;
+    justify-content: center;
   }
   
   .hero h1 {
-    font-size: 36px;
+    font-size: 3.5rem; /* Increased font size */
     margin-bottom: 20px;
+    font-family: 'Montserrat', sans-serif; /* Custom font */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Text shadow */
   }
   
   .hero p {
-    font-size: 18px;
-    margin-bottom: 20px;
+    font-size: 1.5rem; /* Increased font size */
+    margin-bottom: 40px;
+    font-family: 'Montserrat', sans-serif; /* Custom font */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3); /* Text shadow */
   }
   
   .cta-btn {
-    background-color: #1ACDD5;
-    color: #FAFAFA;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    text-decoration: none;
+    
+    background-color: #1DABD7; /* Primary color */
+    color: #FAFAFA; /* Text color */
+    width:50%;
+    padding: 15px;
+    align-items: center; 
+    /* padding: 15px 59px;  */
+    border: 2px solid #1DABD7; /* Border */
+    border-radius: 50px; /* Rounded button */
+    font-size: 1.5rem; /* Increased font size */
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease; /* Smooth transition */
+    font-family: 'Montserrat', sans-serif; /* Custom font */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); /* Button shadow */
+  }
+  
+  .cta-btn:hover {
+    background-color: #1ACDD5; /* Primary color - hover state */
+    border-color: #12a7af; /* Border color - hover state */
+    animation-delay: 10s;
+  }
+  
+  
+  @keyframes pulse {
+    from {
+      transform: scale(1);
+      opacity: 0.8;
+    }
+    to {
+      transform: scale(1.1);
+      opacity: 1;
+    }
   }
   
