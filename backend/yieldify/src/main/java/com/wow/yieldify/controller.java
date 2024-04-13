@@ -6,6 +6,8 @@ import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestClientException;
@@ -17,19 +19,18 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @RestController
 public class controller {
 
-    @GetMapping("/historical-data/{symbol}/{fromDate}/{toDate}/{x}")
+
+    @GetMapping("/historical-data/{symbol}")
     @ResponseBody
     public ResponseEntity<MetricsResponse> getHistoricalData(@PathVariable String symbol,
-                                                    @PathVariable String fromDate,
-                                                    @PathVariable String toDate,
-                                                    @PathVariable int x) {
+                                                    @RequestBody DataModel datamodel) {
 
-        String url = buildUrl(symbol, fromDate, toDate);
+        String url = buildUrl(symbol, datamodel.fromDate, datamodel.toDate);
         RestTemplate restTemplate = new RestTemplate();
 
         try {
             ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
-            return handleApiResponse(response, x);
+            return handleApiResponse(response, datamodel.numberOfDaysToExpiry);
         } catch (RestClientException e) {
             MetricsResponse errorResponse = new MetricsResponse(-1, -1, -1, -1, -1, -1, -1); // Initialize with default values
             return ResponseEntity.internalServerError().body(errorResponse);
