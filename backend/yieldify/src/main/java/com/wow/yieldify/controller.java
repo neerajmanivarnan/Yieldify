@@ -18,7 +18,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class controller {
 
     @GetMapping("/historical-data/{symbol}/{fromDate}/{toDate}/{x}")
-    @ResponseBody
+    // @ResponseBody
     public ResponseEntity<MetricsResponse> getHistoricalData(@PathVariable String symbol,
                                                     @PathVariable String fromDate,
                                                     @PathVariable String toDate,
