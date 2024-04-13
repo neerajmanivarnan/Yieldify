@@ -21,6 +21,9 @@ import org.springframework.web.client.RestTemplate;
 import kong.unirest.Unirest;
 import kong.unirest.UnirestException;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 @RestController
 public class controller {
 
@@ -50,13 +53,25 @@ public class controller {
         String responseBody = response.getBody();
     
         if (statusCode == 200) {
-            // You might need to parse the JSON response body based on Upstox API format
-            // Consider using a library like jackson-databind for easier parsing
-    
-            return ResponseEntity.ok(responseBody); // Return the raw JSON response
+            try {
+                ObjectMapper objectMapper = new ObjectMapper();
+                JsonNode jsonNode = objectMapper.readTree(responseBody);
+                JsonNode candlesNode = jsonNode.path("data").path("candles");
+
+                StringBuilder resultBuilder = new StringBuilder();
+                for (JsonNode candle : candlesNode) {
+                    String date = candle.get(0).asText();
+                    double close = candle.get(4).asDouble();
+                    resultBuilder.append("Date: ").append(date).append(", Close: ").append(close).append("\n");
+                }
+
+                return ResponseEntity.ok(resultBuilder.toString());
+            } catch (Exception e) {
+                return ResponseEntity.internalServerError().body("Error parsing JSON: " + e.getMessage());
+            } 
         } else {
-            return ResponseEntity.status(statusCode).body("Error: " + responseBody);
-        }
+                return ResponseEntity.status(statusCode).body("Error: " + responseBody);
+            
+        }   
     }
-    
 }
