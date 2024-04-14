@@ -1,0 +1,63 @@
+/* General Styles */
+
+body {
+  font-family: sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.date-input-container {
+  max-width: 600px;
+  margin: 50px auto;
+  padding: 40px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.heading {
+  font-size: 2.5rem;
+  text-align: center;
+  margin-bottom: 30px;
+  color: #333;
+}
+
+/* Date Pickers */
+
+.date-pickers {
+  display: flex;
+  justify-content: space-between;
+}
+
+.date-picker {
+  flex: 1;
+}
+
+label {
+  display: block;
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+  color: #555;
+}
+
+input[type='date'] {
+  width: 100%;
+  padding: 15px;
+  border: 1px solid #ced4da;
+  border-radius: 6px;
+  font-size: 1.3rem;
+  box-sizing: border-box;
+  margin-bottom: 15px; /* Reduced margin for better spacing */
+}
+
+/* Button */
+
+.get-data-button {
+  display: block;
+  width: 100%;
+  padding: 15px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+}

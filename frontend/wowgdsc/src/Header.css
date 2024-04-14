@@ -1,0 +1,39 @@
+/* Header.css */
+.navbar {
+  
+    background: linear-gradient(to right, #26b7ff, #1A202C);/* Dark blue */
+    color: #fff; /* White */
+    padding: 10px 20px;
+    
+  }
+  
+  .nav-links {
+    list-style: none;
+    display: flex;
+    justify-content: flex-end; /* Align elements to the right */
+    align-items: center;
+    margin: 0; /* Remove default margin */
+  }
+  
+  .navbar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .navbar li {
+    display: inline;
+    margin-right: 20px;
+  }
+  
+  .nav-button {
+    background-color: transparent;
+    border: none;
+    color: #fff; /* White */
+    cursor: pointer;
+    transition: background-color 0.3s ease-in, color 0.3s ease-in, border-color 0.3s ease-in;
+  }
+  
+  .nav-button:hover {
+    color: #ccc;
+  }
