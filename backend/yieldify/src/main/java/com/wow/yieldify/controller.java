@@ -6,7 +6,6 @@ import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,6 +17,24 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RestController
 public class controller {
+
+    @GetMapping("/option-contracts/{symbol}")
+    public ResponseEntity<String> getOptionContracts(@PathVariable String symbol
+                                                                       ) {
+
+        String url = "https://api.upstox.com/v2/option/contracts" ;
+        RestTemplate restTemplate = new RestTemplate();
+
+        try {
+            ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
+            return response;
+        } catch (RestClientException e) {
+            e.printStackTrace();
+            return ResponseEntity.status(500).body("Failed to fetch option contracts for symbol: " + symbol);
+        }
+    }
+    
+
 
 
 
