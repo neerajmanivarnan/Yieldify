@@ -4,14 +4,14 @@
     background: linear-gradient(to right, #26b7ff, #1A202C);/* Dark blue */
     color: #fff; /* White */
     padding: 10px 20px;
-    
+    display: flex;
+    justify-content: flex-end;
   }
   
   .nav-links {
     list-style: none;
     display: flex;
     justify-content: flex-end; /* Align elements to the right */
-    align-items: center;
     margin: 0; /* Remove default margin */
   }
   
@@ -29,6 +29,7 @@
   .nav-button {
     background-color: transparent;
     border: none;
+    font-size: 1.5rem;
     color: #fff; /* White */
     cursor: pointer;
     transition: background-color 0.3s ease-in, color 0.3s ease-in, border-color 0.3s ease-in;
@@ -37,3 +38,10 @@
   .nav-button:hover {
     color: #ccc;
   }
+
+  .navbar-brand {
+    font-size: 1.5rem;
+    justify-content: flex-start; /* Align to the start of the flex container */
+    margin-right: auto; /* Push the brand to the left by taking up all available space */
+  }
+  
